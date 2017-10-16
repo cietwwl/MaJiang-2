@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    
+     PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"    
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     <mapper namespace="OneRoom">
+     	<insert id="save" parameterType="OneRoom"
+			useGeneratedKeys="true" keyProperty="id">
+			insert into oneroom(total,zhama,createUserId) values(#{total},#{zhama},#{createUserId})
+		</insert>
+     	<!-- <select id="selUserById" parameterType="int" resultType="com.zxz.domain.User">
+	    	select * from user where uid=#{uid} 
+	    </select> -->
+	    <!-- 创建房间 -->
+		<select id="createOneRoom" parameterType="OneRoom" statementType="CALLABLE" resultType="int">
+			CALL newCreateRoom2(#{total},#{zhama},#{createUserId},#{invertal})
+		</select>
+		
+		<select id="createOneRoom2" parameterType="OneRoom" statementType="CALLABLE" resultType="int">
+			CALL newCreateRoom3(#{total},#{zhama},#{createUserId},#{id})
+		</select>
+		
+		<!-- 用户的消费记录 -->
+		<select id="userConsumeRoomCard" parameterType="hashMap" statementType="CALLABLE" resultType="int">
+			<!-- {total=0, totalGame=8, type=1, userId=19, roomId=105331} -->
+			CALL zjconsumeRecord(#{roomId},#{userId},#{totalGame},#{type},#{total})
+		</select>
+     </mapper>
+     

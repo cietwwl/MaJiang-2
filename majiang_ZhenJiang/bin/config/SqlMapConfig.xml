@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration    
+     PUBLIC "-//mybatis.org//DTD Config 3.0//EN"    
+     "http://mybatis.org/dtd/mybatis-3-config.dtd">
+     <configuration>
+     	<typeAliases>
+     		<typeAlias type="com.zxz.domain.User" alias="User"/>
+     		<typeAlias type="com.zxz.domain.OneRoom" alias="OneRoom"/>
+     		<typeAlias type="com.zxz.domain.SumScore" alias="SumScore"/>
+     		<typeAlias type="com.zxz.domain.UserScore" alias="UserScore"/>
+     		<typeAlias type="com.zxz.domain.Message" alias="Message"/>
+     		<typeAlias type="com.zxz.domain.Vedio" alias="Vedio"/>
+     	</typeAliases>
+     	<!-- 配置mybatis的运行环境 -->
+     	<environments default="mybatisDeve">
+     		<!-- mybatis的具体运行环境配置 -->
+     		<environment id="mybatisDeve">
+     			<!-- 配置mybatis进行数据库操作的事务管理，交给jdbc管理 -->
+	     		<transactionManager type="JDBC"></transactionManager>
+	     		<!-- 配置mybatis在运行的是依赖的数据连接池 -->
+	     		<dataSource type="com.zxz.dao.C3P0DataSourceFactory">
+	     			<property name="driverClass" value="com.mysql.jdbc.Driver"/>
+     		 		<property name="jdbcUrl" value="jdbc:mysql://47.93.37.202:3306/mj?characterEncoding=utf8"/>
+     		 		<property name="user" value="root"/>
+     		 		<property name="password" value="gushuang123mysql"/>
+					<property name="idleConnectionTestPeriod" value="60" />
+					<property name="maxPoolSize" value="20" />
+					<property name="maxIdleTime" value="600" />
+					<property name="preferredTestQuery" value="SELECT 1" />
+	     		</dataSource>
+	     	</environment>
+     	</environments>
+     	<mappers>
+     		<mapper resource="com/zxz/domain/User.xml"/>
+     		<mapper resource="com/zxz/domain/OneRoom.xml"/>
+     		<mapper resource="com/zxz/domain/UserScore.xml"/>
+     		<mapper resource="com/zxz/domain/SumScore.xml"/>
+     		<mapper resource="com/zxz/domain/Message.xml"/>
+     		<mapper resource="com/zxz/domain/Vedio.xml"/>
+     	</mappers>
+     </configuration>

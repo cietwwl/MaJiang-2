@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Thu Apr 27 17:48:37 CST 2017
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=E\:\\server3\\zj.jar
+manifest.mergeall=true
+manifest.mainclass=com.zxz.controller.StartServer
+manifest.file=<createnew>
+jarname.isextern=true
+onejar.expand=
+excludes=
+includes=

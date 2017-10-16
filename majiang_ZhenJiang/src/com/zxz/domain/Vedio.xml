@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Vedio">
+  <resultMap id="BaseResultMap" type="com.zxz.domain.Vedio">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="Record" jdbcType="VARCHAR" property="record" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createDate, Record
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from vedio
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from vedio
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="save" parameterType="Vedio" useGeneratedKeys="true"
+		keyProperty="id">
+		insert into vedio(Record) values(#{record})
+	</insert>
+  
+  <insert id="insert" parameterType="com.zxz.domain.Vedio">
+    insert into vedio (id, createDate, Record
+      )
+    values (#{id,jdbcType=INTEGER}, #{createdate,jdbcType=TIMESTAMP}, #{record,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxz.domain.Vedio">
+    insert into vedio
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createdate != null">
+        createDate,
+      </if>
+      <if test="record != null">
+        Record,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record != null">
+        #{record,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxz.domain.Vedio">
+    update vedio
+    <set>
+      <if test="createdate != null">
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record != null">
+        Record = #{record,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxz.domain.Vedio">
+    update vedio
+    set createDate = #{createdate,jdbcType=TIMESTAMP},
+      Record = #{record,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

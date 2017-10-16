@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    
+     PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"    
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="User">
+	<insert id="save" parameterType="User" useGeneratedKeys="true"
+		keyProperty="id">
+		insert into user(openid,nickName,sex,province,city,country,unionid,refreshToken,createDate,headimgurl) values(#{openid},#{nickName},#{sex},#{province},#{city},#{country},#{unionid},#{refreshToken},#{createDate},#{headimgurl})
+	</insert>
+	<select id="query" parameterType="User" resultType="User">
+		select * from user u where 1 = 1
+		<if test="id != null">
+			AND id = #{id}
+		</if>
+		<if test="nickName != null">
+			AND nickName = #{nickName}
+		</if>
+		<if test="openid != null">
+			AND openid = #{openid}
+		</if>
+		<if test="userName != null">
+			AND userName = #{userName}
+		</if>
+		<if test="password != null">
+			AND password = #{password}
+		</if>
+		<if test="unionid != null">
+			AND unionid = #{unionid}
+		</if>
+	</select>
+	
+  <select id="selectByPrimaryKey" parameterType="int" resultType="User">
+    select * from user u where id = #{id}
+  </select>
+	
+	<select id="queryList" parameterType="User" resultType="User">
+		select * from user u where 1 = 1
+		<if test="userName != null">
+			AND userName like #{userName}
+		</if>
+		<if test="password != null">
+			AND password like #{password}
+		</if>
+	</select>
+	
+	<update id="modify" parameterType="User">
+		update user  
+		<set>
+			<if test="userName!=null and userName!=''">
+				userName = #{userName},
+			</if>
+			<if test="nickName!=null and nickName!=''">
+				nickName = #{nickName},
+			</if>
+				roomId = #{roomId},
+			<if test="roomCard!=null and roomCard!=''">
+				roomCard = #{roomCard},
+			</if>
+			<if test="refreshToken!=null and refreshToken!=''">
+				refreshToken = #{refreshToken},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+</mapper>
+     

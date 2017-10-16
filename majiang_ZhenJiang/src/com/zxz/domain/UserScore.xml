@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    
+     PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"    
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserScore">
+	<insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+		insert into userScore(userid,roomid,currentGame,score,vedioid,createDate) values(#{userid},#{roomid},#{currentGame},#{score},#{vedioid},#{createDate})
+	</insert>
+	<select id="queryForMap" parameterType="java.util.Map" resultType="UserScore">
+		select * from userScore us where 1 = 1
+		<if test="userid != null ">
+			AND us.userid = #{userid}
+		</if>
+		order by us.createDate desc limit #{pageIndex},#{pageSize}  
+	</select>
+	
+	<select id="querySumForMap" parameterType="java.util.Map" resultType="java.util.LinkedHashMap">
+		SELECT ss.userid,ss.finalScore,ss.createDate,u.nickName,oneroom.total,ss.roomNumber
+		from sumScore ss 
+		join user u on u.id = ss.userid
+		join oneroom on oneroom.roomNumber = ss.roomNumber
+		where ss.roomNumber in(
+				SELECT m.roomNumber from 
+				(
+					SELECT ss.userid,ss.roomNumber from sumScore ss 
+					where 
+						ss.userid = #{userid}
+					ORDER BY ss.id desc
+					LIMIT #{pageIndex},#{pageSize} 
+				)m
+		)
+		ORDER BY ss.createDate DESC
+	</select>
+	
+	
+	<select id="selectUserScoreByCurrentRoomNumber" resultType="int" parameterType="UserScore">
+		SELECT IFNULL(SUM(us.score),0) as score FROM userScore us 
+		where us.userid = #{userid} 
+		and us.roomid = #{roomid}
+		ORDER BY us.id DESC
+	</select>
+	
+</mapper>
+     

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    
+     PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"    
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SumScore">
+	<insert id="save" parameterType="SumScore" useGeneratedKeys="true"
+		keyProperty="id">
+		insert into sumScore(roomNumber,userid,huPaiTotal,jieGangTotal,anGangTotal,zhongMaTotal,finalScore,fangGangTotal,mingGangtotal,createDate) 
+		            values(#{roomNumber},#{userid},#{huPaiTotal},#{jieGangTotal},#{anGangTotal},#{zhongMaTotal},#{finalScore},#{fangGangTotal},#{mingGangtotal},#{createDate})
+	</insert>
+	<select id="query" parameterType="java.util.Map" resultType="SumScore">
+		select * from sumScore  where 1 = 1
+		<if test="userid != null ">
+			AND userid = #{userid}
+		</if>
+		<if test="roomNumber != roomNumber">
+			AND roomNumber = #{roomNumber}
+		</if>
+		limit #{pageIndex},#{pageSize}
+	</select>
+</mapper>
+     
