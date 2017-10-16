@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class MySort {
 	
 	public static void main(String[] args) {
-		Object [] objs = {23,23,90,-9};
+		Object [] objs = {23,23,90,-9,1,1};
 		int[] sort = sort(objs);
 		showArray(sort);
 	}
